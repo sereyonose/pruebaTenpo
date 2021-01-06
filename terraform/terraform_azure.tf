@@ -36,6 +36,7 @@ resource "azurerm_public_ip" "myterraformpublicipapp" {
     location                     = "eastus"
     resource_group_name          = azurerm_resource_group.myterraformgroup.name
     allocation_method            = "Dynamic"
+    domain_name_label            = "myterraformpublicipapptenpoapi"
        
     tags = {
         environment = "Terraform Demo"
@@ -47,6 +48,7 @@ resource "azurerm_public_ip" "myterraformpublicipdb" {
     location                     = "eastus"
     resource_group_name          = azurerm_resource_group.myterraformgroup.name
     allocation_method            = "Dynamic"
+    domain_name_label            = "myterraformpublicipdbtenpodb"
   
     tags = {
         environment = "Terraform Demo"
