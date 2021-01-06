@@ -219,9 +219,9 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
             "echo 'DB_HOST=${var.api_db_host}' >> ~/.env ",
             "echo 'DB_DATABASE=${var.api_db_database}' >> ~/.env ",
             "echo 'DB_PORT=${var.api_db_port}' >> ~/.env ",
-            "wget https://gitlab.com/sereyonose/tenpo-test/-/tree/master/API",
-            "chmod +x Api.sh",
-            "./Api.sh"
+            "wget https://raw.githubusercontent.com/csereya/pruebaTenpo/main/scripts/api.sh",
+            "chmod +x api.sh",
+            "./api.sh"
         ]
     }
 
@@ -267,16 +267,16 @@ resource "azurerm_linux_virtual_machine" "myterraforVmDB" {
     provisioner "remote-exec" {
         connection {
             type     = "ssh"
-            host     = "myterraformpublicipdbtenpo.eastus.cloudapp.azure.com"
+            host     = "myterraformpublicipdbtenpodb.eastus.cloudapp.azure.com"
             user     = "azureuser"
             password = ""
         }
 
         inline = [
             "echo '${var.api_db_password}' >> ~/.env ",
-            "wget hhttps://gitlab.com/sereyonose/tenpo-test/-/tree/master/API",
-            "chmod +x Db.sh",
-            "./Db.sh"
+            "wget https://raw.githubusercontent.com/csereya/pruebaTenpo/main/scripts/db.sh",
+            "chmod +x db.sh",
+            "./db.sh"
         ]
     }
 }
