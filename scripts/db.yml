@@ -23,7 +23,7 @@
      - postgresql
      - postgresql-contrib
   - name: script creacion bd
-    shell: wget https://gitlab.com/sereyonose/tenpo-test/-/raw/master/bd/createBD.sql
+    shell: wget https://raw.githubusercontent.com/csereya/pruebaTenpo/main/bd/createBD.sql
   - name: crea base de datos
     shell: sudo -u postgres createdb tenpo-bd
   - name: asigna password al usuario

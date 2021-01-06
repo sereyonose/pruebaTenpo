@@ -37,7 +37,7 @@
       - git
   - name: Clone repo
     git: 
-     repo: https://gitlab.com/sereyonose/tenpo-test.git
+     repo: https://github.com/csereya/pruebaTenpo.git
      clone: yes
      dest: tenpo-test
   - name: Create .env file
