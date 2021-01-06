@@ -1,0 +1,14 @@
+api:  
+     build: .  
+     volumes:    
+         - "./:/usr/src/api"  
+     ports:    
+         - "8080:3000"
+     net: "host"
+     environment:
+      - JWTPASSWORD=${JWTPASSWORD}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_PORT=${DB_PORT}

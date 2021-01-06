@@ -1,0 +1,41 @@
+---
+- hosts: localhost
+  vars:
+   db_pass_env: "{{ lookup('file','.env') }}"
+  tasks:
+  - name: Install wget & certificates
+    become: true
+    apt:
+     update-cache: yes
+     pkg:
+     - wget
+     - ca-certificates
+     state: present
+  - name: Add postgresql repo key
+    shell: wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+  - name: Add repo
+    shell: sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" >> /etc/apt/sources.list.d/pgdg.list'
+  - name: Install postgresql
+    become: true
+    apt:
+     update-cache: yes
+     pkg:
+     - postgresql
+     - postgresql-contrib
+  - name: script creacion bd
+    shell: wget https://gitlab.com/sereyonose/tenpo-test/-/raw/master/bd/createBD.sql
+  - name: crea base de datos
+    shell: sudo -u postgres createdb tenpo-bd
+  - name: asigna password al usuario
+    lineinfile:
+     path:  createBD.sql
+     insertbefore: BOF
+     line: "ALTER USER postgres PASSWORD '{{ db_pass_env }}';"
+  - name: provisiona base de datos
+    shell: sudo -u postgres psql -d tenpo-bd -a -f createBD.sql
+  - name: habilitar conecciones remotas en postgres
+    shell: archivo=$(sudo  find -O2 / -name "postgresql.conf" | head -n 1) && sudo sed -i "s/\#listen_addresses/listen_addresses = \'*\' \\#/g" $archivo
+  - name:  habilitar en configuracion de postgress
+    shell: archivo=$(sudo  find -O2 / -name "pg_hba.conf" | head -n 1) && echo 'host    all             all              all              md5' | sudo tee -a $archivo
+  - name:  restart postgress
+    shell: sudo /etc/init.d/postgresql restart

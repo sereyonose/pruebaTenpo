@@ -1,0 +1,46 @@
+---
+- hosts: localhost
+  tasks:
+  - name: Install packages
+    become: true
+    apt:
+     update-cache: yes
+     pkg:
+     - apt-transport-https
+     - ca-certificates
+     - curl
+     - gnupg-agent
+     - software-properties-common
+     state: present
+  - name: Docker repo Key
+    shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - name: Fingerprint
+    shell: apt-key fingerprint 0EBFCD88
+  - name: Add repo
+    shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - name: instala docker-ce docker-ce-cli containerd.io
+    become: true
+    apt:
+     update-cache: yes
+     pkg:
+     - docker-ce
+     - docker-ce-cli
+     - containerd.io
+  - name: Install docker compose
+    shell: sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  - name: Symbolics links
+    shell: sudo chmod +x /usr/local/bin/docker-compose && sudo ln -sf /usr/local/bin/docker-compose /usr/bin/docker-compose
+  - name: Git
+    become: true
+    apt:
+      pkg:
+      - git
+  - name: Clone repo
+    git: 
+     repo: https://gitlab.com/sereyonose/tenpo-test.git
+     clone: yes
+     dest: tenpo-test
+  - name: Create .env file
+    shell: cp .env tenpo-test/api/.env
+  - name: Build and compose up
+    shell: cd tenpo-test/api && sudo docker-compose build && sudo docker-compose up -d 
