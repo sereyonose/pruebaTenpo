@@ -1,5 +1,9 @@
+terraform {
+  required_providers {
+    azurerm = "=2.40.0"
+  }
+}
 provider "azurerm" {
-  version = "=2.40.0"
   features {}
   subscription_id = var.azure_subscription_id
 }
@@ -28,7 +32,7 @@ resource "azurerm_subnet" "myterraformsubnet" {
     name                 = "mySubnet"
     resource_group_name  = azurerm_resource_group.myterraformgroup.name
     virtual_network_name = azurerm_virtual_network.myterraformnetwork.name
-    address_prefix       = "10.0.2.0/24"
+    address_prefixes       = ["10.0.2.0/24"]
 }
 
 resource "azurerm_public_ip" "myterraformpublicipapi" {
@@ -169,11 +173,11 @@ resource "azurerm_storage_account" "mystorageaccount" {
 }
 
 # Create (and display) an SSH key
-resource "tls_private_key" "example_ssh" {
+resource "tls_private_key" "ssh_key" {
   algorithm = "RSA"
   rsa_bits = 4096
 }
-output "tls_private_key" { value = tls_private_key.example_ssh.private_key_pem }
+output "tls_private_key" { value = tls_private_key.ssh_key.private_key_pem }
 
 resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
     name                  = "vmApp"
@@ -201,7 +205,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
         
     admin_ssh_key {
         username       = "azureuser"
-        public_key     = tls_private_key.example_ssh.public_key_openssh
+        public_key     = tls_private_key.ssh_key.public_key_openssh
     }
 
     boot_diagnostics {
@@ -217,7 +221,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
             type     = "ssh"
             host     = "myterraformpublicipapitenpo.eastus.cloudapp.azure.com"
             user     = "azureuser"
-            password = ""
+            private_key = tls_private_key.ssh_key.private_key_pem
         }
 
         inline = [
@@ -265,7 +269,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmDB" {
         
     admin_ssh_key {
         username       = "azureuser"
-        public_key     = tls_private_key.example_ssh.public_key_openssh
+        public_key     = tls_private_key.ssh_key.public_key_openssh
     }
 
     boot_diagnostics {
@@ -281,7 +285,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmDB" {
             type     = "ssh"
             host     = "myterraformpublicipdbtenpo.eastus.cloudapp.azure.com"
             user     = "azureuser"
-            password = ""
+            private_key = tls_private_key.ssh_key.private_key_pem
         }
 
         inline = [
@@ -291,7 +295,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmDB" {
             "sudo apt-add-repository --yes --update ppa:ansible/ansible",
             "sudo apt-get update",
             "sudo apt install ansible --assume-yes",
-            "wget https://raw.githubusercontent.com/sereyonose/pruebaTenpo/main/scripts/bd.yml",
+            "wget https://raw.githubusercontent.com/sereyonose/pruebaTenpo/main/scripts/db.yml",
             "ansible-playbook db.yml -i localhost"
         ]
     }
