@@ -35,7 +35,7 @@ const removeFromWhiteList = (token) => {
 };
 
 const isInWhiteList = (token) => {
-    return tokenWhiteList.find((el) => ele === token)
+    return tokenWhiteList.find((el) => el === token)
 }
 
 const getEmailFromToken = (token) => {
