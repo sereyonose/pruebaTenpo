@@ -17,7 +17,7 @@ const register = async (req, res) => {
         await db.userDoesNotExist(email)
     }
     catch (e) {
-        res.status(409).send();
+        res.status(409).send(e);
         return;
     }
 
