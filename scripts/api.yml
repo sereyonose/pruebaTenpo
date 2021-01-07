@@ -41,6 +41,6 @@
      clone: yes
      dest: prueba-tenpo
   - name: Create .env file
-    shell: cp .env prueba-tenpo/api/.env
+    shell: cp ~/.env prueba-tenpo/api/.env
   - name: Build and compose up
     shell: cd prueba-tenpo/api && sudo docker-compose build && sudo docker-compose up -d 
