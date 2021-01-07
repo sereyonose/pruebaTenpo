@@ -1,0 +1,37 @@
+#### Register ####
+curl --location --request POST 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/register' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "mail1@mail.com",
+    "password": "pass2",
+    "name": "nombre1",
+    "last_name": "apellido1"
+}'
+
+#### Login ####
+curl --location --request POST 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/login' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "mail1@mail.com",
+    "password": "pass2"
+}'
+
+#### AddNumbers ####
+curl --location --request POST 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/addNumbers' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNTE0MjEsImV4cCI6MTYxMDA1MTcyMX0.UmNC-VSkhM6Vi0_YRYxvV_thIviE-qi1aafPnJE06EM' \
+--data-raw '{
+    "n1": 2,
+    "n2": 3
+}'
+
+#### History ####
+curl --location --request GET 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/history?email=mail@mail.com' \
+--header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNTE0MjEsImV4cCI6MTYxMDA1MTcyMX0.UmNC-VSkhM6Vi0_YRYxvV_thIviE-qi1aafPnJE06EM'
+
+#### Logout ####
+curl --location --request POST 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/logout' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNDk1MjEsImV4cCI6MTYxMDA0OTgyMX0.kUWJFKDBy9vZbw3iq3z39zCu66sYQS5ypnQkLepfoa0"
+}'

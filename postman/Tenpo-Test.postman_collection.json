@@ -1,0 +1,183 @@
+{
+	"info": {
+		"_postman_id": "ab2d9151-0363-48e5-bed4-ec18b20cebb3",
+		"name": "Tenpo-Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "logout",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNDk1MjEsImV4cCI6MTYxMDA0OTgyMX0.kUWJFKDBy9vZbw3iq3z39zCu66sYQS5ypnQkLepfoa0\"\n}"
+				},
+				"url": {
+					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/logout",
+					"protocol": "http",
+					"host": [
+						"myterraformpublicipapitenpo",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "history",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNTE0MjEsImV4cCI6MTYxMDA1MTcyMX0.UmNC-VSkhM6Vi0_YRYxvV_thIviE-qi1aafPnJE06EM",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/history?email=mail@mail.com",
+					"protocol": "http",
+					"host": [
+						"myterraformpublicipapitenpo",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"history"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "mail@mail.com"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addNumbers",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNTE0MjEsImV4cCI6MTYxMDA1MTcyMX0.UmNC-VSkhM6Vi0_YRYxvV_thIviE-qi1aafPnJE06EM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"n1\": 2,\n    \"n2\": 3\n}"
+				},
+				"url": {
+					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/addNumbers",
+					"protocol": "http",
+					"host": [
+						"myterraformpublicipapitenpo",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"addNumbers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mail1@mail.com\",\n    \"password\": \"pass2\"\n}"
+				},
+				"url": {
+					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/login",
+					"protocol": "http",
+					"host": [
+						"myterraformpublicipapitenpo",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mail1@mail.com\",\n    \"password\": \"pass2\",\n    \"name\": \"nombre1\",\n    \"last_name\": \"apellido1\"\n}"
+				},
+				"url": {
+					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/register",
+					"protocol": "http",
+					"host": [
+						"myterraformpublicipapitenpo",
+						"eastus",
+						"cloudapp",
+						"azure",
+						"com"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
