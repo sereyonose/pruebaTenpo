@@ -179,7 +179,7 @@ resource "tls_private_key" "ssh_key" {
 }
 output "tls_private_key" { value = tls_private_key.ssh_key.private_key_pem }
 
-resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
+resource "azurerm_linux_virtual_machine" "myterraformVmApp" {
     name                  = "vmApp"
     location              = "eastus"
     resource_group_name   = azurerm_resource_group.myterraformgroup.name
@@ -243,7 +243,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
 
 }
 
-resource "azurerm_linux_virtual_machine" "myterraforVmDB" {
+resource "azurerm_linux_virtual_machine" "myterraformVmDB" {
     name                  = "vmDB"
     location              = "eastus"
     resource_group_name   = azurerm_resource_group.myterraformgroup.name

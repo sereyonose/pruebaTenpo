@@ -13,8 +13,8 @@ const register = async (req, res) => {
 
     const email = data.email;
     try {
-        // Valida que usurio no exista
-        await db.userNotExist(email)
+        // Valida que usuario no exista
+        await db.userDoesNotExist(email)
     }
     catch (e) {
         res.status(409).send();
