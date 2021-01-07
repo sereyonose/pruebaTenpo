@@ -31,12 +31,12 @@ resource "azurerm_subnet" "myterraformsubnet" {
     address_prefix       = "10.0.2.0/24"
 }
 
-resource "azurerm_public_ip" "myterraformpublicipapp" {
-    name                         = "myPublicIPApp"
+resource "azurerm_public_ip" "myterraformpublicipapi" {
+    name                         = "myPublicIPApi"
     location                     = "eastus"
     resource_group_name          = azurerm_resource_group.myterraformgroup.name
     allocation_method            = "Dynamic"
-    domain_name_label            = "myterraformpublicipapptenpoapi"
+    domain_name_label            = "myterraformpublicipapitenpo"
        
     tags = {
         environment = "Terraform Demo"
@@ -48,7 +48,7 @@ resource "azurerm_public_ip" "myterraformpublicipdb" {
     location                     = "eastus"
     resource_group_name          = azurerm_resource_group.myterraformgroup.name
     allocation_method            = "Dynamic"
-    domain_name_label            = "myterraformpublicipdbtenpodb"
+    domain_name_label            = "myterraformpublicipdbtenpo"
   
     tags = {
         environment = "Terraform Demo"
@@ -101,16 +101,16 @@ resource "azurerm_network_security_group" "myterraformnsg" {
     }
 }
 
-resource "azurerm_network_interface" "myterraformnicapp" {
-    name                        = "myNICApp"
+resource "azurerm_network_interface" "myterraformnicapi" {
+    name                        = "myNICApi"
     location                    = "eastus"
     resource_group_name         = azurerm_resource_group.myterraformgroup.name
 
     ip_configuration {
-        name                          = "myNicConfigurationApp"
+        name                          = "myNicConfigurationApi"
         subnet_id                     = azurerm_subnet.myterraformsubnet.id
         private_ip_address_allocation = "Dynamic"
-        public_ip_address_id          = azurerm_public_ip.myterraformpublicipapp.id
+        public_ip_address_id          = azurerm_public_ip.myterraformpublicipapi.id
     }
 
     tags = {
@@ -120,7 +120,7 @@ resource "azurerm_network_interface" "myterraformnicapp" {
 
 # Connect the security group to the network interface
 resource "azurerm_network_interface_security_group_association" "networkassocciationapp" {
-    network_interface_id      = azurerm_network_interface.myterraformnicapp.id
+    network_interface_id      = azurerm_network_interface.myterraformnicapi.id
     network_security_group_id = azurerm_network_security_group.myterraformnsg.id
 }
 
@@ -173,7 +173,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
     name                  = "vmApp"
     location              = "eastus"
     resource_group_name   = azurerm_resource_group.myterraformgroup.name
-    network_interface_ids = [azurerm_network_interface.myterraformnicapp.id]
+    network_interface_ids = [azurerm_network_interface.myterraformnicapi.id]
     size                  = "Standard_DS1_v2"
 
     os_disk {
@@ -209,7 +209,7 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
     provisioner "remote-exec" {
         connection {
             type     = "ssh"
-            host     = "myterraformpublicipapptenpoapi.eastus.cloudapp.azure.com"
+            host     = "myterraformpublicipapitenpo.eastus.cloudapp.azure.com"
             user     = "azureuser"
             password = ""
         }
@@ -221,9 +221,13 @@ resource "azurerm_linux_virtual_machine" "myterraforVmApp" {
             "echo 'DB_HOST=${var.api_db_host}' >> ~/.env ",
             "echo 'DB_DATABASE=${var.api_db_database}' >> ~/.env ",
             "echo 'DB_PORT=${var.api_db_port}' >> ~/.env ",
-            "wget https://raw.githubusercontent.com/csereya/pruebaTenpo/main/scripts/api.sh",
-            "chmod +x api.sh",
-            "./api.sh"
+            "sudo apt-get update",
+            "sudo apt install software-properties-common --assume-yes",
+            "sudo apt-add-repository --yes --update ppa:ansible/ansible",
+            "sudo apt-get update",
+            "sudo apt install ansible --assume-yes",
+            "wget https://raw.githubusercontent.com/sereyonose/pruebaTenpo/main/scripts/api.yml",
+            "ansible-playbook api.yml -i localhost"
         ]
     }
 
@@ -269,16 +273,20 @@ resource "azurerm_linux_virtual_machine" "myterraforVmDB" {
     provisioner "remote-exec" {
         connection {
             type     = "ssh"
-            host     = "myterraformpublicipdbtenpodb.eastus.cloudapp.azure.com"
+            host     = "myterraformpublicipdbtenpo.eastus.cloudapp.azure.com"
             user     = "azureuser"
             password = ""
         }
 
         inline = [
             "echo '${var.api_db_password}' >> ~/.env ",
-            "wget https://raw.githubusercontent.com/csereya/pruebaTenpo/main/scripts/db.sh",
-            "chmod +x db.sh",
-            "./db.sh"
+            "sudo apt-get update",
+            "sudo apt install software-properties-common --assume-yes",
+            "sudo apt-add-repository --yes --update ppa:ansible/ansible",
+            "sudo apt-get update",
+            "sudo apt install ansible --assume-yes",
+            "wget https://raw.githubusercontent.com/sereyonose/pruebaTenpo/main/scripts/bd.yml",
+            "ansible-playbook db.yml -i localhost"
         ]
     }
 }

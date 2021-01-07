@@ -18,7 +18,7 @@
     shell: apt-key fingerprint 0EBFCD88
   - name: Add repo
     shell: sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  - name: instala docker-ce docker-ce-cli containerd.io
+  - name: Install docker-ce docker-ce-cli containerd.io
     become: true
     apt:
      update-cache: yes
@@ -39,8 +39,8 @@
     git: 
      repo: https://github.com/csereya/pruebaTenpo.git
      clone: yes
-     dest: tenpo-test
+     dest: prueba-tenpo
   - name: Create .env file
-    shell: cp .env tenpo-test/api/.env
+    shell: cp .env prueba-tenpo/api/.env
   - name: Build and compose up
-    shell: cd tenpo-test/api && sudo docker-compose build && sudo docker-compose up -d 
+    shell: cd prueba-tenpo/api && sudo docker-compose build && sudo docker-compose up -d 
