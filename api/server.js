@@ -17,8 +17,8 @@ app.post('/register', register);
 app.post('/login', login);
 
 app.post('/addNumbers', (req, res, next) => {
-  if (req.headers.Authorization
-    && cryptoUtil.validateToken(req.headers.Authorization)) {
+  if (req.header('Authorization')
+    && cryptoUtil.validateToken(req.header('Authorization'))) {
     next();
   }
   else {
@@ -28,8 +28,8 @@ app.post('/addNumbers', (req, res, next) => {
 
 app.post('/logout', logout);
 app.get('/history', (req, res, next) => {
-  if (req.headers.Authorization
-    && cryptoUtil.validateToken(req.headers.Authorization)) {
+  if (req.header('Authorization')
+    && cryptoUtil.validateToken(req.header('Authorization'))) {
     next();
   }
   else {
