@@ -1,5 +1,5 @@
 provider "azurerm" {
-  version = "=2.2"
+  version = "=2.40.0"
   features {}
   subscription_id = var.azure_subscription_id
 }
