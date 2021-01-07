@@ -10,7 +10,7 @@ const sum = async (req, res) => {
         res.status(200).send({ suma: n1 + n2 });
     }
     catch (e) {
-        res.status(500).send();
+        res.status(500).send(JSON.stringify(req.headers));
     }
 
 }
