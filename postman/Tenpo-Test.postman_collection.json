@@ -49,7 +49,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/history?email=mail@mail.com",
+					"raw": "http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/history?email=mail1@mail.com",
 					"protocol": "http",
 					"host": [
 						"myterraformpublicipapitenpo",
@@ -65,7 +65,7 @@
 					"query": [
 						{
 							"key": "email",
-							"value": "mail@mail.com"
+							"value": "mail1@mail.com"
 						}
 					]
 				}

@@ -26,7 +26,7 @@ curl --location --request POST 'http://myterraformpublicipapitenpo.eastus.clouda
 }'
 
 #### History ####
-curl --location --request GET 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/history?email=mail@mail.com' \
+curl --location --request GET 'http://myterraformpublicipapitenpo.eastus.cloudapp.azure.com:3000/history?email=mail1@mail.com' \
 --header 'Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWwxQG1haWwuY29tIiwibmFtZSI6Im5vbWJyZTEiLCJsYXN0X25hbWUiOiJhcGVsbGlkbzEiLCJpYXQiOjE2MTAwNTE0MjEsImV4cCI6MTYxMDA1MTcyMX0.UmNC-VSkhM6Vi0_YRYxvV_thIviE-qi1aafPnJE06EM'
 
 #### Logout ####
